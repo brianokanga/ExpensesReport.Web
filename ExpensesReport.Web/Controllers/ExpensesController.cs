@@ -37,16 +37,20 @@ namespace ExpensesReport.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddEditExpense(Expense model)
+        public IActionResult Create(Expense newExpense)
         {
-            if (model.Id > 0)
+            if (ModelState.IsValid == null)
             {
-                _expense.UpdateExpense(model);
+                if (newExpense.Id > 0)
+                {
+                    _expense.UpdateExpense(newExpense);
+                }
+                else
+                {
+                    _expense.AddExpense(newExpense);
+                }
             }
-            else
-            {
-                _expense.AddExpense(model);
-            }
+            
             return View(Index);
         }
     }
