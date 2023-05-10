@@ -39,7 +39,7 @@ namespace ExpensesReport.Web.Controllers
         [HttpPost]
         public IActionResult Create(Expense newExpense)
         {
-            if (ModelState.IsValid == null)
+            if (ModelState.IsValid)
             {
                 if (newExpense.Id > 0)
                 {
@@ -50,8 +50,10 @@ namespace ExpensesReport.Web.Controllers
                     _expense.AddExpense(newExpense);
                 }
             }
-            
-            return View(Index);
+            return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
     }
 }
