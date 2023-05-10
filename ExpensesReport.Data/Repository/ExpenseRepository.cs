@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ExpensesReport.Data.Repository
 {
-    internal class ExpenseRepository : IExpenseRepository
+    public class ExpenseRepository : IExpenseRepository
     {
         private readonly ApplicationDbContext _context;
 

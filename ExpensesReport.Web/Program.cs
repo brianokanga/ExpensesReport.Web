@@ -1,12 +1,16 @@
 using ExpensesReport.Data.Data;
+using ExpensesReport.Data.Repository.IRepository;
+using ExpensesReport.Data.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options
 .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IExpenseRepository,ExpenseRepository>();
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
