@@ -10,11 +10,14 @@ namespace ExpensesReport.Data.Repository.IRepository
     public interface IExpenseRepository
     {
         IEnumerable<Expense> GetAllExpenses();
-        IEnumerable<Expense> Search(string searchString);
+        IEnumerable<Expense> GetSearchResults(string searchString);
         void Add(Expense expense);
         int Update(Expense expense);
         Expense GetExpenseById(int id);
         void Delete(int id);
+        Dictionary<string, decimal> CalculateMonthlyExpense();
+        Dictionary<string, decimal> CalculateWeeklyExpense();
+
 
     }
 }
