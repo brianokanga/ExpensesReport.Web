@@ -13,8 +13,8 @@ namespace ExpensesReport.Data.Repository.IRepository
         IEnumerable<Expense> GetSearchResults(string searchString);
         void Add(Expense expense);
         int Update(Expense expense);
-        Expense GetExpenseById(int id);
-        void Delete(int id);
+        Expense GetExpenseData(int id);
+        void DeleteExpense(int id);
         Dictionary<string, decimal> CalculateMonthlyExpense();
         Dictionary<string, decimal> CalculateWeeklyExpense();
 

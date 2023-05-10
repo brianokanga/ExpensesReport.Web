@@ -22,7 +22,7 @@ namespace ExpensesReport.Web.Controllers
             }
             else
             {
-                lists = _expense.Search(searching).ToList();
+                lists = _expense.GetSearchResults(searching).ToList();
             }
             return View(lists);
         }
@@ -33,7 +33,7 @@ namespace ExpensesReport.Web.Controllers
             Expense model = new Expense();
             if(id > 0)
             {
-                model = _expense.GetExpenseById(id);
+                model = _expense.GetExpenseData(id);
             }
             return PartialView("_AddEditView",model);
         }

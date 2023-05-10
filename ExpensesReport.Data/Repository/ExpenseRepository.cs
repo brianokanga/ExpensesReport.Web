@@ -1,6 +1,7 @@
 ﻿using ExpensesReport.Data.Data;
 using ExpensesReport.Data.Models;
 using ExpensesReport.Data.Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,18 +18,6 @@ namespace ExpensesReport.Data.Repository
         {
             _context = context;
         }
-        public void Add(Expense expense)
-        {
-            try
-            {
-                _context.Expenses.Add(expense);
-                _context.SaveChanges();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
 
         public IEnumerable<Expense> GetAllExpenses()
         {
@@ -43,8 +32,49 @@ namespace ExpensesReport.Data.Repository
                 throw;
             }
         }
+        public IEnumerable<Expense> GetSearchResults(string searchString)
+        {
+            try
+            {
+                var searchExpenses = GetAllExpenses().Where(x => x.Title.Contains(searchString));
+                return searchExpenses;
+            }
+            catch (Exception)
+            {
 
-        public Expense GetExpenseById(int id)
+                throw;
+            }
+        }
+        
+        public void Add(Expense expense)
+        {
+            try
+            {
+                _context.Expenses.Add(expense);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public int Update(Expense expense)
+        {
+            try
+            {
+                _context.Entry(expense).State = EntityState.Modified;
+                _context.SaveChanges();
+                return 1;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public Expense GetExpenseData(int id)
         {
             try
             {
@@ -58,36 +88,7 @@ namespace ExpensesReport.Data.Repository
             }
         }
 
-        public IEnumerable<Expense> Search(string searchString)
-        {
-            try
-            {
-                var searchExpenses = GetAllExpenses().Where(x => x.Title.Contains(searchString));
-                return searchExpenses;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-
-        public int Update(Expense expense)
-        {
-            try
-            {
-                _context.Entry(expense).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                _context.SaveChanges();
-                return 1;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-
-        public void Delete(int id)
+        public void DeleteExpense(int id)
         {
             try
             {
@@ -100,5 +101,17 @@ namespace ExpensesReport.Data.Repository
                 throw;
             }
         }
+
+        //REPORTS
+        public Dictionary<string, decimal> CalculateWeeklyExpense()
+        {
+            throw new NotImplementedException();
+        } 
+
+        public Dictionary<string, decimal> CalculateMonthlyExpense()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
