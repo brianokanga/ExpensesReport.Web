@@ -55,5 +55,9 @@ namespace ExpensesReport.Web.Controllers
 
         [HttpPost]
         public IActionResult Delete(int id)
+        {
+            _expense.DeleteExpense(id);
+            return RedirectToAction("Index");
+        }
     }
 }
