@@ -21,7 +21,7 @@ namespace ExpensesReport.Data.Repository
         {
             try
             {
-                _context.Expense.Add(expense);
+                _context.Expenses.Add(expense);
                 _context.SaveChanges();
             }
             catch (Exception)
@@ -34,7 +34,7 @@ namespace ExpensesReport.Data.Repository
         {
             try
             {
-                var expenses = _context.Expense.ToList();
+                var expenses = _context.Expenses.ToList();
                 return expenses;
             }
             catch (Exception)
@@ -48,7 +48,7 @@ namespace ExpensesReport.Data.Repository
         {
             try
             {
-                var expense = _context.Expense.Find(id);
+                var expense = _context.Expenses.Find(id);
                 return expense;
             }
             catch (Exception)
@@ -91,13 +91,12 @@ namespace ExpensesReport.Data.Repository
         {
             try
             {
-                Expense emp = _context.Expense.Find(id);
-                _context.Expense.Remove(emp);
+                Expense emp = _context.Expenses.Find(id);
+                _context.Expenses.Remove(emp);
                 _context.SaveChanges();
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
