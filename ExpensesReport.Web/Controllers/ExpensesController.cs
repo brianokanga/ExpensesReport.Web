@@ -16,11 +16,9 @@ namespace ExpensesReport.Web.Controllers
         public IActionResult Index(string searching)
         {
             List<Expense> lists = new List<Expense>();
+            lists = _expense.GetAllExpenses().ToList();
+
             if (string.IsNullOrEmpty(searching))
-            {
-                lists = _expense.GetAllExpenses().ToList();
-            }
-            else
             {
                 lists = _expense.GetSearchResults(searching).ToList();
             }
@@ -28,7 +26,7 @@ namespace ExpensesReport.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult ExpenseData(int id)
+        public IActionResult AddEditExpense(int id)
         {
             Expense model = new Expense();
             if(id > 0)
@@ -39,16 +37,15 @@ namespace ExpensesReport.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult ExpenseData(Expense model)
+        public IActionResult AddEditExpense(Expense model)
         {
             if (model.Id > 0)
             {
-                _expense.Update(model);
+                _expense.UpdateExpense(model);
             }
             else
             {
-                _expense.Add(model);
-
+                _expense.AddExpense(model);
             }
             return View(Index);
         }

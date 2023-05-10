@@ -11,8 +11,8 @@ namespace ExpensesReport.Data.Repository.IRepository
     {
         IEnumerable<Expense> GetAllExpenses();
         IEnumerable<Expense> GetSearchResults(string searchString);
-        void Add(Expense expense);
-        int Update(Expense expense);
+        void AddExpense(Expense expense);
+        int UpdateExpense(Expense expense);
         Expense GetExpenseData(int id);
         void DeleteExpense(int id);
         Dictionary<string, decimal> CalculateMonthlyExpense();

@@ -46,7 +46,7 @@ namespace ExpensesReport.Data.Repository
             }
         }
         
-        public void Add(Expense expense)
+        public void AddExpense(Expense expense)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace ExpensesReport.Data.Repository
             }
         }
 
-        public int Update(Expense expense)
+        public int UpdateExpense(Expense expense)
         {
             try
             {
