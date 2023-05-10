@@ -15,7 +15,7 @@ namespace ExpensesReport.Data.Models
         public string Title { get; set; }
 
         [Required]
-        public decimal MoneySpent { get; set; }
+        public float Amount { get; set; }
 
         [Required]
         public DateTime ExpenseDate { get; set; }
