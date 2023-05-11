@@ -28,7 +28,6 @@ namespace ExpensesReport.Data.Repository
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -41,11 +40,10 @@ namespace ExpensesReport.Data.Repository
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
-        
+
         public void AddExpense(Expense expense)
         {
             try
@@ -103,15 +101,70 @@ namespace ExpensesReport.Data.Repository
         }
 
         //REPORTS
-        public Dictionary<string, decimal> CalculateWeeklyExpense()
-        {
-            throw new NotImplementedException();
-        } 
-
         public Dictionary<string, decimal> CalculateMonthlyExpense()
         {
-            throw new NotImplementedException();
-        }
+            List<Expense> expenses = new List<Expense>();
 
+            Dictionary<string, decimal> dicMonthlySum = new Dictionary<string, decimal>();
+
+            decimal foodSum = (decimal)_context.Expenses.Where
+                (cat => cat.Category == "Food" && cat.ExpenseDate > DateTime.Now.AddMonths(-7))
+                .Select(cat => cat.Amount)
+                .Sum();
+
+            decimal travelSum = (decimal)_context.Expenses.Where
+                (cat => cat.Category == "Travel" && cat.ExpenseDate > DateTime.Now.AddMonths(-7))
+                .Select(cat => cat.Amount)
+                .Sum();
+
+            decimal shoppingSum = (decimal)_context.Expenses.Where
+                (cat => cat.Category == "Shopping" && cat.ExpenseDate > DateTime.Now.AddMonths(-7))
+                .Select(cat => cat.Amount)
+                .Sum();
+
+            decimal healthSum = (decimal)_context.Expenses.Where
+                (cat => cat.Category == "Health" && cat.ExpenseDate > DateTime.Now.AddMonths(-7))
+                .Select(cat => cat.Amount)
+                .Sum();
+
+            dicMonthlySum.Add("Food", foodSum);
+            dicMonthlySum.Add("Travel", travelSum);
+            dicMonthlySum.Add("Shopping", shoppingSum);
+            dicMonthlySum.Add("Health", healthSum);
+
+            return dicMonthlySum;
+        }
+        public Dictionary<string, decimal> CalculateWeeklyExpense()
+        {
+            List<Expense> expenses = new List<Expense>();
+            Dictionary<string, decimal> dicWeeklySum = new Dictionary<string, decimal>();
+
+            decimal foodSum = (decimal)_context.Expenses.Where
+                (cat => cat.Category == "Food" && cat.ExpenseDate > DateTime.Now.AddDays(-28))
+                .Select(cat => cat.Amount)
+                .Sum();
+
+            decimal shoppingSum = (decimal)_context.Expenses.Where
+                (cat => cat.Category == "Shopping" && cat.ExpenseDate > DateTime.Now.AddDays(-28))
+                .Select(cat => cat.Amount)
+                .Sum();
+
+            decimal travelSum = (decimal)_context.Expenses.Where
+                (cat => cat.Category == "Travel" && cat.ExpenseDate > DateTime.Now.AddDays(-28))
+                .Select(cat => cat.Amount)
+                .Sum();
+
+            decimal healthSum = (decimal)_context.Expenses.Where
+                (cat => cat.Category == "Health" && cat.ExpenseDate > DateTime.Now.AddDays(-28))
+                .Select(cat => cat.Amount)
+                .Sum();
+
+            dicWeeklySum.Add("Food", foodSum);
+            dicWeeklySum.Add("Travel", travelSum);
+            dicWeeklySum.Add("Shopping", shoppingSum);
+            dicWeeklySum.Add("Health", healthSum);
+
+            return dicWeeklySum;
+        }
     }
 }
