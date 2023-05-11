@@ -1,4 +1,5 @@
 ﻿using ExpensesReport.Data.Models;
+using ExpensesReport.Data.Repository;
 using ExpensesReport.Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -58,6 +59,23 @@ namespace ExpensesReport.Web.Controllers
         {
             _expense.DeleteExpense(id);
             return RedirectToAction("Index");
+        }
+
+        public IActionResult ExpenseSummary()
+        {
+            return PartialView(_expenseReport);
+        }
+
+        public JsonResult GetMonthlyExpense(ExpenseRepository expenseRepository) 
+        {
+            Dictionary<string, decimal> monthlyExpense = expenseRepository.CalculateMonthlyExpense();
+            return new JsonResult(monthlyExpense);
+        }
+
+        public JsonResult GetWeeklyExpense(ExpenseRepository expenseRepository)
+        {
+            Dictionary<string, decimal> weeklyExpense = expenseRepository.CalculateWeeklyExpense();
+            return new JsonResult(weeklyExpense);
         }
     }
 }
